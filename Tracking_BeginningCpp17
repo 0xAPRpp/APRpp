@@ -11,7 +11,10 @@ int main(int argc, char* argv[])
 {
 	long double days{ static_cast<double>(day_in_year(stoi(argv[3]), stoi(argv[4])) - day_in_year(stoi(argv[1]), stoi(argv[2]))) + 1 };
 	long double pages{ static_cast<double>(stoi(argv[6]) - stoi(argv[5]))};
-	long double per_day{pages/days};
+	
+	//This is to compensate for the rouding error
+	long double per_day{pages-1/days}; 
+	
 	cout << "Days: " << days << endl;
 
 	cout << "Pages: " << pages << endl;
