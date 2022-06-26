@@ -1,0 +1,89 @@
+# include <iostream>
+# include <iomanip>
+# include <string>
+
+using namespace std;
+long double day_in_year(long double day, long double month);
+void print_days
+(long double start_day, long double start_month, long double end_day, long double end_month, long double days, long double start_page, long double delta);
+
+int main(int argc, char* argv[])
+{
+	long double days{ static_cast<double>(day_in_year(stoi(argv[3]), stoi(argv[4])) - day_in_year(stoi(argv[1]), stoi(argv[2]))) + 1 };
+	long double pages{ static_cast<double>(stoi(argv[6]) - stoi(argv[5]))};
+	long double per_day{pages/days};
+	cout << "Days: " << days << endl;
+
+	cout << "Pages: " << pages << endl;
+
+	cout << "Per Day: " << pages / days << endl;
+
+	cout << endl;
+
+	print_days
+	(stod(argv[1]), stod(argv[2]), stod(argv[3]), stod(argv[4]), days, stod(argv[5]), per_day);
+	 
+	system("pause");
+}
+
+long double day_in_year(long double day, long double month)
+{
+	long double total_days{};
+	switch (static_cast<int>(month))
+	{
+	case 1:     total_days = 0;   break;
+	case 2:		total_days = 31;  break;
+	case 3:		total_days = 59;  break;
+	case 4:     total_days = 90;  break;
+	case 5:     total_days = 120; break;
+	case 6:     total_days = 151; break;
+	case 7:     total_days = 181; break;
+	case 8:     total_days = 212; break;
+	case 9:     total_days = 243; break;
+	case 10:    total_days = 273; break;
+	case 11:    total_days = 304; break;
+	case 12:    total_days = 334; break;
+	}
+
+	return day + total_days;
+
+}
+
+void print_days
+(long double start_day, long double start_month, long double end_day, long double end_month, long double days, long double start_page, long double delta)
+{
+	long double total_days{};
+	std::string month{};
+	size_t perline{};
+	for (size_t i{ 1 }; i <= days; )
+	{
+		switch (static_cast<int>(start_month))
+		{
+		case 1:		total_days = 31;  month = " Jan ";  break;
+		case 2:		total_days = 28;  month = " Feb "; break;
+		case 3:     total_days = 31;  month = " Mar "; break;
+		case 4:     total_days = 30; month = " Apr "; break;
+		case 5:     total_days = 31; month = " May "; break;
+		case 6:     total_days = 30; month = " Jun "; break;
+		case 7:     total_days = 31; month = " Jul "; break;
+		case 8:     total_days = 31; month = " Aug "; break;
+		case 9:    total_days = 30; month = " Sep "; break;
+		case 10:    total_days = 31; month = " Oct "; break;
+		case 11:    total_days = 30; month = " Nov "; break;
+		case 12:     total_days = 31;   month = " Dec "; break;
+		}
+		if (start_month == end_month)
+			total_days = end_day;
+		for (size_t j(start_day); j <= total_days; j++, i++)
+		{
+			cout << setw(3) << start_day++ << setw(4) << month << setw(8) << (start_page += delta) <<"|";
+			if (++perline % 10 == 0)
+				cout << endl;
+		}
+		perline = 0;
+		cout << endl;
+		cout << endl;
+		start_day = 1, start_month++;
+
+	}
+}
