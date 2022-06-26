@@ -10,11 +10,11 @@ void print_days
 int main(int argc, char* argv[])
 {
 	long double days{ static_cast<double>(day_in_year(stoi(argv[3]), stoi(argv[4])) - day_in_year(stoi(argv[1]), stoi(argv[2]))) + 1 };
-	long double pages{ static_cast<double>(stoi(argv[6]) - stoi(argv[5]))};
-	
+	long double pages{ static_cast<double>(stoi(argv[6]) - stoi(argv[5])) };
+
 	//This is to compensate for the rouding error
-	long double per_day{pages-1/days}; 
-	
+	long double per_day{ (pages - 1) / days };
+
 	cout << "Days: " << days << endl;
 
 	cout << "Pages: " << pages << endl;
@@ -24,8 +24,8 @@ int main(int argc, char* argv[])
 	cout << endl;
 
 	print_days
-	(stod(argv[1]), stod(argv[2]), stod(argv[3]), stod(argv[4]), days, stod(argv[5]), per_day);
-	 
+	(stod(argv[1]), stod(argv[2]), stod(argv[3]), stod(argv[4]), days, stod(argv[5])+1, per_day);
+
 	system("pause");
 }
 
@@ -79,7 +79,7 @@ void print_days
 			total_days = end_day;
 		for (size_t j(start_day); j <= total_days; j++, i++)
 		{
-			cout << setw(3) << start_day++ << setw(4) << month << setw(8) << (start_page += delta) <<"|";
+			cout << setw(3) << start_day++ << setw(4) << month << setw(8) << (start_page += delta) << "|";
 			if (++perline % 10 == 0)
 				cout << endl;
 		}
